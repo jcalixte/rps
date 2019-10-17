@@ -44,6 +44,10 @@ export default {
 </script>
 
 <style scoped>
+.home {
+  height: 100vh;
+}
+
 .card-container {
   display: flex;
   align-items: center;

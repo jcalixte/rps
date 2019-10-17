@@ -1,7 +1,16 @@
 <template>
   <div class="rock-paper-scissors">
-    <h1>Play {{ id }}</h1>
-    <div class="game">{{ rock }} {{ paper }} {{ scissors }}</div>
+    <div class="game">
+      <md-button class="md-icon-button md-primary hand">
+        {{ rock }}
+      </md-button>
+      <md-button class="md-icon-button md-primary hand">
+        {{ paper }}
+      </md-button>
+      <md-button class="md-icon-button md-primary hand">
+        {{ scissors }}
+      </md-button>
+    </div>
   </div>
 </template>
 
@@ -24,8 +33,20 @@ export default Vue.extend({
 </script>
 
 <style>
+.rock-paper-scissors {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 .game {
-  padding: 15pt;
+  font-size: 72pt;
+}
+
+.md-button.hand {
+  width: 86pt;
+  height: 86pt;
   font-size: 72pt;
 }
 </style>

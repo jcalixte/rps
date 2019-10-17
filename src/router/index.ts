@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
+const routes: RouteConfig[] = [
   {
     path: '/',
     name: 'home',
@@ -13,7 +13,7 @@ const routes = [
   {
     path: '/game/:id',
     name: 'game',
-    prop: true,
+    props: true,
     component: () => import('@/views/Game.vue')
   }
 ]
