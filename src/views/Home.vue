@@ -1,10 +1,29 @@
 <template>
   <div class="home">
     <p>Join a game</p>
-    <input type="text" v-model="id" />
-    <router-link v-if="id" :to="{ name: 'game', params: { id } }">
-      Join
-    </router-link>
+    <div class="card-container">
+      <md-card>
+        <md-card-content>
+          <md-field>
+            <label>game id</label>
+            <md-input v-model="id"></md-input>
+          </md-field>
+          <router-link
+            v-if="id"
+            :to="{ name: 'game', params: { id } }"
+            tag="span"
+          >
+            <md-button class="md-icon-button md-primary">
+              <md-icon>play_arrow</md-icon>
+            </md-button>
+          </router-link>
+        </md-card-content>
+      </md-card>
+
+      <md-button class="md-icon-button md-raised md-primary" @click="add">
+        <md-icon>add</md-icon>
+      </md-button>
+    </div>
   </div>
 </template>
 
@@ -17,6 +36,17 @@ export default {
     return {
       id: ''
     }
+  },
+  methods: {
+    add() {}
   }
 }
 </script>
+
+<style scoped>
+.card-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+</style>
