@@ -8,19 +8,13 @@
             <label>game id</label>
             <md-input v-model="id"></md-input>
           </md-field>
-          <router-link
-            v-if="id"
-            :to="{ name: 'game', params: { id } }"
-            tag="span"
-          >
-            <md-button class="md-icon-button md-primary">
-              <md-icon>play_arrow</md-icon>
-            </md-button>
-          </router-link>
+          <md-button class="md-icon-button md-primary" @click="add">
+            <md-icon>play_arrow</md-icon>
+          </md-button>
         </md-card-content>
       </md-card>
 
-      <md-button class="md-icon-button md-raised md-primary" @click="add">
+      <md-button class="md-icon-button md-raised md-primary" @click="create">
         <md-icon>add</md-icon>
       </md-button>
     </div>
@@ -29,6 +23,9 @@
 
 <script>
 import RockPaperScissors from '@/components/RockPaperScissors.vue'
+import PlayService from '@/services/PlayService'
+import repository from '@/repository'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'home',
@@ -38,7 +35,37 @@ export default {
     }
   },
   methods: {
-    add() {}
+    async add() {
+      if (this.uuid && this.id) {
+        const play = await repository.getRemote(this.id)
+        if (play) {
+          this.joinPlay()
+          return
+        }
+        const ok = await PlayService.add(this.uuid, this.id)
+        if (ok) {
+          this.redirectToPlay(this.id)
+        }
+      }
+    },
+    async create() {
+      if (this.uuid) {
+        const id = await PlayService.add(this.uuid)
+        this.redirectToPlay(id)
+      }
+    },
+    async joinPlay() {
+      await PlayService.joinPlay(this.id, this.uuid)
+      this.redirectToPlay(this.id)
+    },
+    redirectToPlay(id) {
+      if (id) {
+        this.$router.push({ name: 'play', params: { id: this.id } })
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(['uuid'])
   }
 }
 </script>

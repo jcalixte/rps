@@ -23,8 +23,12 @@ class Repository {
   }
 
   public async getRemote<T>(id: string): Promise<T | null> {
-    const result = await this.remote.get(id)
-    return ((result as any) as T) || null
+    try {
+      const result = await this.remote.get(id)
+      return ((result as any) as T) || null
+    } catch (error) {
+      return null
+    }
   }
 
   public liveGame(id: string): void {

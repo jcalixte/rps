@@ -11,10 +11,10 @@ const routes: RouteConfig[] = [
     component: Home
   },
   {
-    path: '/game/:id',
-    name: 'game',
+    path: '/play/:id',
+    name: 'play',
     props: true,
-    component: () => import('@/views/Game.vue')
+    component: () => import('@/views/Play.vue')
   }
 ]
 
