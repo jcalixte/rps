@@ -1,4 +1,5 @@
 import Hand from '@/enums/Hand'
+import Player from '@/enums/Player'
 
 export default interface IPlay {
   _id: string
@@ -7,7 +8,7 @@ export default interface IPlay {
 }
 
 interface ITurn {
-  player1: Hand
-  player2: Hand
-  winner: 'player1' | 'player2'
+  [Player.Player1]: Hand
+  [Player.Player2]: Hand
+  winner: Player
 }
