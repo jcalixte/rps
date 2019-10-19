@@ -1,33 +1,13 @@
 <template>
   <div class="rock-paper-scissors">
     <div class="game">
-      <div class="player-1">
+      <div class="player player-1">
         <h1>Player 1</h1>
-        <div class="command">
-          <md-button class="md-icon-button md-primary hand">
-            {{ rock }}
-          </md-button>
-          <md-button class="md-icon-button md-primary hand">
-            {{ paper }}
-          </md-button>
-          <md-button class="md-icon-button md-primary hand">
-            {{ scissors }}
-          </md-button>
-        </div>
+        <RPSCommand />
       </div>
-      <div class="player-2">
+      <div class="player player-2">
         <h1>Player 2</h1>
-        <div class="command">
-          <md-button class="md-icon-button md-primary hand">
-            {{ rock }}
-          </md-button>
-          <md-button class="md-icon-button md-primary hand">
-            {{ paper }}
-          </md-button>
-          <md-button class="md-icon-button md-primary hand">
-            {{ scissors }}
-          </md-button>
-        </div>
+        <RPSCommand />
       </div>
     </div>
   </div>
@@ -35,18 +15,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import RPSCommand from '@/components/RPSCommand.vue'
 
 export default Vue.extend({
   name: 'RockPaperScissors',
+  components: { RPSCommand },
   props: {
     id: String
-  },
-  data() {
-    return {
-      rock: '✊',
-      paper: '✋',
-      scissors: '✌️'
-    }
   }
 })
 </script>
@@ -62,11 +37,10 @@ export default Vue.extend({
 .game {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-.md-button.hand {
-  width: 86pt;
-  height: 86pt;
-  font-size: 60pt;
+.player {
+  margin: 15px;
 }
 </style>
