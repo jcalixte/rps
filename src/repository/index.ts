@@ -11,9 +11,7 @@ class Repository {
     try {
       const response = await this.remote.put(doc)
       return response.ok
-    } catch (error) {
-      console.error({ error })
-    }
+    } catch (error) {}
     return false
   }
 
@@ -45,9 +43,7 @@ class Repository {
           result
         })
       })
-      .on('error', (error) => {
-        console.warn({ error })
-      })
+      .on('error', () => {})
   }
 
   public cancelLive(): void {
