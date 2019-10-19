@@ -11,8 +11,9 @@ class Repository {
     try {
       const response = await this.remote.put(doc)
       return response.ok
-    } catch (error) {}
-    return false
+    } catch (error) {
+      return false
+    }
   }
 
   public async get<T>(id: string): Promise<T | null> {
@@ -43,7 +44,6 @@ class Repository {
           result
         })
       })
-      .on('error', () => {})
   }
 
   public cancelLive(): void {
