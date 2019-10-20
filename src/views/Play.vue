@@ -10,9 +10,13 @@ import RockPaperScissors from '@/components/RockPaperScissors.vue'
 import PlayService from '../services/PlayService'
 import bus, { SYNC_UP } from '../utils/bus'
 import repository from '../repository'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'play',
+  components: {
+    RockPaperScissors
+  },
   props: {
     id: String
   },
@@ -27,9 +31,12 @@ export default {
     })
     repository.liveGame(this.id)
     this.play = await PlayService.get(this.id)
+    if (!this.play.player2) {
+      await PlayService.joinPlay(this.id, this.uuid)
+    }
   },
-  components: {
-    RockPaperScissors
+  computed: {
+    ...mapGetters(['uuid'])
   }
 }
 </script>
