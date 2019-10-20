@@ -45,7 +45,7 @@ export default Vue.extend({
   },
   methods: {
     buttonClass(hand: Hand) {
-      const selected = this.value === hand ? 'raised' : ''
+      const selected = this.value === hand ? 'md-raised' : ''
       return 'md-icon-button md-primary hand ' + selected
     },
     play(hand: Hand) {
