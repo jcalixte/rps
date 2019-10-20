@@ -48,7 +48,6 @@ class Repository {
         doc_ids: [id]
       })
       .on('change', (result) => {
-        console.log('ON LIVE CHANGE', id, result)
         bus.$emit(SYNC_UP, {
           id,
           result
