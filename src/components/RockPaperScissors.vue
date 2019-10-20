@@ -113,11 +113,9 @@ export default class RockPaperScissors extends Vue {
       this.play2 = null
     }
 
-    if (this.isPlayer1) {
-      if (await PlayService.newTurn(this.play)) {
-        this.play1 = null
-        this.play2 = null
-      }
+    if (this.isPlayer1 && (await PlayService.newTurn(this.play))) {
+      this.play1 = null
+      this.play2 = null
     }
   }
 }
