@@ -32,12 +32,14 @@ export default class RPSTurn extends Vue {
   }
 
   private get list() {
-    return (this.finishedTurns as ITurn[]).map(
-      (turn, index) =>
-        `${index + 1}&nbsp;${
-          HandLabel[turn[Player.Player1] as Hand]
-        }&nbsp;-&nbsp;${HandLabel[turn[Player.Player2] as Hand]}`
-    )
+    return this.finishedTurns
+      .map(
+        (turn, index) =>
+          `${index + 1}.&nbsp;${
+            HandLabel[turn[Player.Player1] as Hand]
+          }&nbsp;—&nbsp;${HandLabel[turn[Player.Player2] as Hand]}`
+      )
+      .reverse()
   }
 }
 </script>
@@ -45,6 +47,8 @@ export default class RPSTurn extends Vue {
 <style>
 .rps-turn {
   line-height: 32pt;
+  display: flex;
+  overflow: scroll;
 }
 
 .score {

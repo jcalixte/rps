@@ -14,7 +14,7 @@
         <RPSCommand v-model="play2" :canPlay="isPlayer2" />
       </div>
     </div>
-    <RPSTurn :turns="play.turns" />
+    <RPSTurn class="turn-list" :turns="play.turns" />
   </div>
 </template>
 
@@ -126,13 +126,18 @@ export default class RockPaperScissors extends Vue {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .game {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  margin: 15px 0;
+}
+
+.turn-list {
+  margin: 15px 0;
 }
 
 .player {
