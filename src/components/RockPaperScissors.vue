@@ -11,7 +11,7 @@
         <h1 v-if="isSpectator">Player 2</h1>
         <h1 v-else>{{ isPlayer2 ? 'you!' : 'your opponent' }}</h1>
         <h2>{{ player2Score }}</h2>
-        <RPSCommand v-model="play2" :canPlay="player1HasPlayer && isPlayer2" />
+        <RPSCommand v-model="play2" :canPlay="isPlayer2" />
       </div>
     </div>
     <RPSTurn :turns="play.turns" />
@@ -71,13 +71,6 @@ export default class RockPaperScissors extends Vue {
     return [...turns].pop() || null
   }
 
-  public get player1HasPlayer() {
-    if (!this.lastTurn) {
-      return false
-    }
-    return this.lastTurn[Player.Player1] !== null
-  }
-
   @Watch('play1')
   public async onPlayer1Play(play1: Hand | null) {
     if (play1 === null) {
@@ -105,8 +98,20 @@ export default class RockPaperScissors extends Vue {
       return
     }
 
-    this.play1 = this.lastTurn[Player.Player1]
-    this.play2 = this.lastTurn[Player.Player2]
+    if (this.isPlayer2) {
+      this.play1 = this.lastTurn[Player.Player1]
+    }
+    if (this.isPlayer1) {
+      this.play2 = this.lastTurn[Player.Player2]
+    }
+
+    if (
+      this.lastTurn[Player.Player1] === null &&
+      this.lastTurn[Player.Player2] === null
+    ) {
+      this.play1 = null
+      this.play2 = null
+    }
 
     if (this.isPlayer1) {
       if (await PlayService.newTurn(this.play)) {
