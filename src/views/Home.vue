@@ -6,7 +6,7 @@
         <md-card-content>
           <md-field>
             <label>game id</label>
-            <md-input v-model="id"></md-input>
+            <md-input v-model="id" @keyup.enter="add"></md-input>
           </md-field>
           <md-button class="md-icon-button md-primary" @click="add">
             <md-icon>play_arrow</md-icon>
@@ -36,15 +36,15 @@ export default {
   },
   methods: {
     async add() {
-      if (this.uuid && this.id) {
-        const play = await repository.getRemote(this.id)
+      if (this.uuid && this.lowerId) {
+        const play = await repository.getRemote(this.lowerId)
         if (play) {
           this.joinPlay()
           return
         }
-        const ok = await PlayService.add(this.uuid, this.id)
+        const ok = await PlayService.add(this.uuid, this.lowerId)
         if (ok) {
-          this.redirectToPlay(this.id)
+          this.redirectToPlay(this.lowerId)
         }
       }
     },
@@ -55,7 +55,7 @@ export default {
       }
     },
     async joinPlay() {
-      await PlayService.joinPlay(this.id, this.uuid)
+      const id = await PlayService.joinPlay(this.lowerId, this.uuid)
       this.redirectToPlay(this.id)
     },
     redirectToPlay(id) {
@@ -65,7 +65,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['uuid'])
+    ...mapGetters(['uuid']),
+    lowerId() {
+      return (this.id || '').toLowerCase()
+    }
   }
 }
 </script>

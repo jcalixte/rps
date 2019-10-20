@@ -8,8 +8,8 @@ export default interface IPlay extends IDocument {
   turns: ITurn[]
 }
 
-interface ITurn {
-  [Player.Player1]: Hand
-  [Player.Player2]: Hand
-  winner: Player
+export interface ITurn {
+  [Player.Player1]: Hand | null
+  [Player.Player2]: Hand | null
+  winner: Player | null
 }

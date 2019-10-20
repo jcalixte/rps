@@ -16,6 +16,15 @@ class Repository {
     }
   }
 
+  public async save(doc: IDocument): Promise<boolean> {
+    try {
+      const response = await this.local.put(doc)
+      return response.ok
+    } catch (error) {
+      return false
+    }
+  }
+
   public async get<T>(id: string): Promise<T | null> {
     const result = await this.local.get(id)
     return ((result as any) as T) || null
@@ -39,6 +48,7 @@ class Repository {
         doc_ids: [id]
       })
       .on('change', (result) => {
+        console.log('ON LIVE CHANGE', id, result)
         bus.$emit(SYNC_UP, {
           id,
           result

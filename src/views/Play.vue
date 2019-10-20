@@ -23,7 +23,7 @@ export default {
   },
   async mounted() {
     bus.$on(SYNC_UP, async () => {
-      this.play = await PlayService.get(this.id)
+      this.$set(this, 'play', await PlayService.get(this.id))
     })
     repository.liveGame(this.id)
     this.play = await PlayService.get(this.id)
