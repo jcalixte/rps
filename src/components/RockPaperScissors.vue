@@ -5,7 +5,7 @@
         <h1 v-if="isSpectator">Player 1</h1>
         <h1 v-else>{{ isPlayer1 ? 'you!' : 'your opponent' }}</h1>
         <h2>{{ player1Score }}</h2>
-        <RPSCommand v-model="play1" :canPlay="isPlayer1" />
+        <RPSCommand v-model="play1" :canPlay="isPlayer1" :raise="isPlayer1" />
       </div>
       <div class="player player-2">
         <h1 v-if="isSpectator">Player 2</h1>

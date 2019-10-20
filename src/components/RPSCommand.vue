@@ -33,7 +33,8 @@ export default Vue.extend({
   props: {
     id: String,
     canPlay: Boolean,
-    value: Number
+    value: Number,
+    raise: { type: Boolean, default: true }
   },
   data() {
     return {
@@ -45,7 +46,7 @@ export default Vue.extend({
   },
   methods: {
     buttonClass(hand: Hand) {
-      const selected = this.value === hand ? 'md-raised' : ''
+      const selected = this.raise && this.value === hand ? 'md-raised' : ''
       return 'md-icon-button md-primary hand ' + selected
     },
     play(hand: Hand) {
