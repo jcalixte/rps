@@ -59,7 +59,7 @@ export const burst = (id: string) => {
     radius: 30
   })
 
-  burst1.generate().play()
+  burst1.play()
   largeBurst.play()
   largeCircle.play()
   smallCircle.play()
