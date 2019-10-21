@@ -1,4 +1,4 @@
-import mojs from '@mojs/core'
+declare const mojs: any
 
 export const burst = (id: string) => {
   const burst1 = new mojs.Burst({

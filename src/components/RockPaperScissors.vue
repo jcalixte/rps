@@ -87,10 +87,6 @@ export default class RockPaperScissors extends Vue {
     return [...turns].pop() || null
   }
 
-  public burst() {
-    burst('#burst')
-  }
-
   @Watch('play1')
   public async onPlayer1Play(play1: Hand | null) {
     if (play1 === null) {
