@@ -5,3 +5,4 @@ declare module '*.vue' {
 
 declare module 'vue-material/dist/components'
 declare module 'vue-material'
+declare module '@mojs/core'

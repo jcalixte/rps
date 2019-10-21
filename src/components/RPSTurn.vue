@@ -25,21 +25,22 @@ export default class RPSTurn extends Vue {
   private colors: typeof PlayerColor = PlayerColor
 
   private get finishedTurns(): ITurn[] {
-    return (this.turns as ITurn[]).filter(
-      (turn: ITurn) =>
-        turn[Player.Player1] !== null && turn[Player.Player2] !== null
-    ).reverse()
+    return (this.turns as ITurn[])
+      .filter(
+        (turn: ITurn) =>
+          turn[Player.Player1] !== null && turn[Player.Player2] !== null
+      )
+      .reverse()
   }
 
   private get list() {
     const turnCount = this.finishedTurns.length
-    return this.finishedTurns
-      .map(
-        (turn, index) =>
-          `${turnCount - index}.&nbsp;${
-            HandLabel[turn[Player.Player1] as Hand]
-          }&nbsp;—&nbsp;${HandLabel[turn[Player.Player2] as Hand]}`
-      )
+    return this.finishedTurns.map(
+      (turn, index) =>
+        `${turnCount - index}.&nbsp;${
+          HandLabel[turn[Player.Player1] as Hand]
+        }&nbsp;—&nbsp;${HandLabel[turn[Player.Player2] as Hand]}`
+    )
   }
 }
 </script>
