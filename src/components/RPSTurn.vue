@@ -32,10 +32,11 @@ export default class RPSTurn extends Vue {
   }
 
   private get list() {
+    const turnCount = this.finishedTurns.length
     return this.finishedTurns
       .map(
         (turn, index) =>
-          `${index + 1}.&nbsp;${
+          `${turnCount - index}.&nbsp;${
             HandLabel[turn[Player.Player1] as Hand]
           }&nbsp;—&nbsp;${HandLabel[turn[Player.Player2] as Hand]}`
       )
