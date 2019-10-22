@@ -39,6 +39,17 @@ class Repository {
     }
   }
 
+  public async getAll<T>(): Promise<T[]> {
+    try {
+      const result = await this.local.allDocs({
+        include_docs: true
+      })
+      return (result.rows.map((row) => row.doc) as any[]) as T[]
+    } catch (error) {
+      return []
+    }
+  }
+
   public liveGame(id: string): void {
     this.cancelLive()
     this.sync = this.local

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <p>Join a game</p>
+    <h1>Join a game</h1>
     <div class="card-container">
       <md-card>
         <md-card-content>
@@ -60,7 +60,7 @@ export default {
     },
     redirectToPlay(id) {
       if (id) {
-        this.$router.push({ name: 'play', params: { id: this.id } })
+        this.$router.push({ name: 'play', params: { id } })
       }
     }
   },

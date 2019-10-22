@@ -85,6 +85,10 @@ class PlayService {
     await repository.save(play)
   }
 
+  public async getAll(): Promise<IPlay[]> {
+    return repository.getAll<IPlay>()
+  }
+
   public async newTurn(play: IPlay): Promise<boolean> {
     const lastTurn = [...play.turns].pop()
 
