@@ -4,11 +4,7 @@
       <div class="player player-1">
         <h1 v-if="isSpectator">Player 1</h1>
         <h1 v-else>{{ isPlayer1 ? 'you!' : 'your opponent' }}</h1>
-        <h2
-          id="burst-player1"
-          class="burst"
-          :style="{ backgroundColor: colors[player.Player1] }"
-        >
+        <h2 class="burst" :style="{ backgroundColor: colors[player.Player1] }">
           {{ player1Score }}
         </h2>
         <RPSCommand v-model="play1" :canPlay="isPlayer1" :raise="isPlayer1" />
@@ -16,11 +12,7 @@
       <div class="player player-2">
         <h1 v-if="isSpectator">Player 2</h1>
         <h1 v-else>{{ isPlayer2 ? 'you!' : 'your opponent' }}</h1>
-        <h2
-          id="burst-player2"
-          class="burst"
-          :style="{ backgroundColor: colors[player.Player2] }"
-        >
+        <h2 class="burst" :style="{ backgroundColor: colors[player.Player2] }">
           {{ player2Score }}
         </h2>
         <RPSCommand v-model="play2" :canPlay="isPlayer2" />
@@ -41,7 +33,6 @@ import { Getter } from 'vuex-class'
 import Hand from '@/enums/Hand'
 import Player, { PlayerColor } from '@/enums/Player'
 import PlayService from '@/services/PlayService'
-import { burst } from '@/utils/burst'
 
 @Component({
   components: { RPSCommand, RPSTurn }
@@ -106,19 +97,6 @@ export default class RockPaperScissors extends Vue {
     }
 
     PlayService.setPlay(this.play, Player.Player2, play2)
-  }
-
-  @Watch('player1Score')
-  public onScore1Change(score: number) {
-    if (score) {
-      burst('#burst-player1')
-    }
-  }
-  @Watch('player2Score')
-  public onScore2Change(score: number) {
-    if (score) {
-      burst('#burst-player2')
-    }
   }
 
   @Watch('play', { deep: true })
