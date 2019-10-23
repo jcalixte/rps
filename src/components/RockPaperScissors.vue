@@ -60,18 +60,13 @@ export default class RockPaperScissors extends Vue {
       navigator.share({
         title: `Let's play Rock Paper Scissors!`,
         text: 'I challenge you!',
-        url: this.playUrl
+        url: window.location.href
       })
     }
   }
 
   public get canShareAPI(): boolean {
     return !!navigator && !!navigator.share
-  }
-
-  private get playUrl(): string {
-    let url = window.location.href.replace('/play', '')
-    return url
   }
 
   private get isPlayer1() {
