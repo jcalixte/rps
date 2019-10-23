@@ -1,5 +1,8 @@
 <template>
   <div class="rock-paper-scissors">
+    <div v-if="canShareAPI && !play.player2">
+      <md-button class="md-raised" @click="share">share it!</md-button>
+    </div>
     <div class="game">
       <div class="player player-1">
         <h1 v-if="isSpectator">Player 1</h1>
@@ -23,6 +26,7 @@
 </template>
 
 <script lang="ts">
+declare const navigator: any
 import Vue from 'vue'
 import RPSCommand from '@/components/RPSCommand.vue'
 import RPSTurn from '@/components/RPSTurn.vue'
@@ -50,6 +54,25 @@ export default class RockPaperScissors extends Vue {
 
   private play1: Hand | null = null
   private play2: Hand | null = null
+
+  public share() {
+    if (this.canShareAPI) {
+      navigator.share({
+        title: `Let's play Rock Paper Scissors!`,
+        text: 'I challenge you!',
+        url: this.playUrl
+      })
+    }
+  }
+
+  public get canShareAPI(): boolean {
+    return !!navigator && !!navigator.share
+  }
+
+  private get playUrl(): string {
+    let url = window.location.href.replace('/play', '')
+    return url
+  }
 
   private get isPlayer1() {
     return this.play.player1 === this.uuid
