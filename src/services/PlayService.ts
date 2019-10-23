@@ -21,7 +21,7 @@ class PlayService {
       turns: []
     }
 
-    const result = await repository.add(play)
+    const result = await repository.save(play)
     return result ? play._id : null
   }
 
@@ -41,7 +41,11 @@ class PlayService {
   }
 
   public async get(id: string): Promise<IPlay | null> {
-    return repository.get<IPlay>(id)
+    try {
+      return repository.get<IPlay>(id)
+    } catch (error) {
+      return null
+    }
   }
 
   public async setPlay(play: IPlay, player: Player | null, hand: Hand | null) {

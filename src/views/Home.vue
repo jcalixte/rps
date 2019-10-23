@@ -18,6 +18,11 @@
         <md-icon>add</md-icon>
       </md-button>
     </div>
+    <div class="history" v-if="plays.length">
+      <router-link :to="{ name: 'history' }" tag="md-button" class="md-raised">
+        History
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -31,8 +36,12 @@ export default {
   name: 'home',
   data() {
     return {
-      id: ''
+      id: '',
+      plays: []
     }
+  },
+  async mounted() {
+    this.plays = await repository.getAll()
   },
   methods: {
     async add() {
@@ -76,6 +85,9 @@ export default {
 <style scoped>
 .home {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card-container {

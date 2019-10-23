@@ -26,13 +26,19 @@ export default {
     }
   },
   async mounted() {
-    bus.$on(SYNC_UP, async () => {
-      this.$set(this, 'play', await PlayService.get(this.id))
-    })
+    bus.$on(SYNC_UP, this.getPlay)
     repository.liveGame(this.id)
-    this.play = await PlayService.get(this.id)
-    if (!this.play.player2) {
-      await PlayService.joinPlay(this.id, this.uuid)
+    this.getPlay()
+  },
+  beforeDestroy() {
+    bus.$off(SYNC_UP, this.getPlay)
+  },
+  methods: {
+    async getPlay() {
+      this.play = await PlayService.get(this.id)
+      if (this.play && !this.play.player2) {
+        await PlayService.joinPlay(this.id, this.uuid)
+      }
     }
   },
   computed: {

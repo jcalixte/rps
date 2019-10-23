@@ -4,7 +4,7 @@ enum Player {
 }
 
 export const PlayerColor = {
-  [Player.Player1]: '#3867d6',
+  [Player.Player1]: '#16a085',
   [Player.Player2]: '#fc5c65'
 }
 

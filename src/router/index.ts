@@ -11,6 +11,11 @@ const routes: RouteConfig[] = [
     component: Home
   },
   {
+    path: '/history',
+    name: 'history',
+    component: () => import('@/views/History.vue')
+  },
+  {
     path: '/play/:id',
     name: 'play',
     props: true,
