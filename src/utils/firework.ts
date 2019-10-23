@@ -1,5 +1,36 @@
 import confetti from 'canvas-confetti'
 
+export const showWin = () => {
+  var end = Date.now() + 15 * 1000
+
+  // go Buckeyes!
+  var colors = ['#16a085', '#fc5c65']
+  ;(function frame() {
+    confetti({
+      particleCount: 2,
+      angle: 60,
+      spread: 55,
+      origin: {
+        x: 0
+      },
+      colors
+    })
+    confetti({
+      particleCount: 2,
+      angle: 120,
+      spread: 55,
+      origin: {
+        x: 1
+      },
+      colors
+    })
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame)
+    }
+  })()
+}
+
 export const launchFireworks = () => {
   const end = Date.now() + 2 * 1000
 
