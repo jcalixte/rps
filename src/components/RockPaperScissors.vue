@@ -33,6 +33,7 @@ import { Getter } from 'vuex-class'
 import Hand from '@/enums/Hand'
 import Player, { PlayerColor } from '@/enums/Player'
 import PlayService from '@/services/PlayService'
+import { launchFireworks } from '@/utils/firework'
 
 @Component({
   components: { RPSCommand, RPSTurn }
@@ -76,6 +77,20 @@ export default class RockPaperScissors extends Vue {
   public get lastTurn() {
     const turns = this.play.turns
     return [...turns].pop() || null
+  }
+
+  @Watch('player1Score')
+  public async onScore1Change(score: number) {
+    if (score && this.isPlayer1) {
+      launchFireworks()
+    }
+  }
+
+  @Watch('player2Score')
+  public async onScore2Change(score: number) {
+    if (score && this.isPlayer2) {
+      launchFireworks()
+    }
   }
 
   @Watch('play1')

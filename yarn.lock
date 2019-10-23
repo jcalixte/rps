@@ -775,6 +775,11 @@
     error-stack-parser "^2.0.0"
     string-width "^2.0.0"
 
+"@types/canvas-confetti@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@types/canvas-confetti/-/canvas-confetti-0.1.0.tgz#5adea661e03322498c32eb4f6a3e8e677e36dd11"
+  integrity sha512-LsnlT52tlm9IHHiYzzG3ti0LrxqyzMSzrFPHFHjDcsdhUfpTfL/76D2Wza7JcAnV9Z1wReyzdOmR8fMNWyO3vA==
+
 "@types/debug@*":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.5.tgz#b14efa8852b7768d898906613c23f688713e02cd"
@@ -2207,6 +2212,11 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000999:
   version "1.0.30000999"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000999.tgz#427253a69ad7bea4aa8d8345687b8eec51ca0e43"
   integrity sha512-1CUyKyecPeksKwXZvYw0tEoaMCo/RwBlXmEtN5vVnabvO0KPd9RQLcaAuR9/1F+KDMv6esmOFWlsXuzDk+8rxg==
+
+canvas-confetti@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/canvas-confetti/-/canvas-confetti-0.4.2.tgz#5683320b0365ab3cff28db5cb845c2b1b55a6ed6"
+  integrity sha512-p7eqJOIk4KgZTtkpdzj+0W697vPuK2hmnjaDJqphisQnYp8KmlPTI05FVQd41cFPPzbu1u86SfsMYtrTYpGnOg==
 
 case-sensitive-paths-webpack-plugin@^2.2.0:
   version "2.2.0"
