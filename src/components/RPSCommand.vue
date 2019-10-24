@@ -60,8 +60,8 @@ export default Vue.extend({
 
 <style scoped>
 .md-button.hand {
-  width: 86pt;
-  height: 86pt;
-  font-size: 60pt;
+  width: 60pt;
+  height: 60pt;
+  font-size: 45pt;
 }
 </style>

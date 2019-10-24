@@ -52,3 +52,24 @@ export const launchFireworks = () => {
     })
   }, 150)
 }
+
+export const showSnow = () => {
+  const end = Date.now() + 3 * 1000
+  ;(function frame() {
+    confetti({
+      particleCount: 1,
+      startVelocity: 0,
+      ticks: 300,
+      origin: {
+        x: Math.random(),
+        // since they fall down, start a bit higher than random
+        y: Math.random() - 0.2
+      },
+      colors: ['#000000']
+    })
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame)
+    }
+  })()
+}
