@@ -54,7 +54,7 @@ export const launchFireworks = () => {
 }
 
 export const showSnow = () => {
-  const end = Date.now() + 3 * 1000
+  const end = Date.now() + 0.5 * 1000
   ;(function frame() {
     confetti({
       particleCount: 1,
