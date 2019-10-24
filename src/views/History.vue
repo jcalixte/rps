@@ -6,6 +6,7 @@
       :to="{ name: 'play', params: { id: play._id } }"
       tag="md-button"
       class="md-raised"
+      :class="{ 'play-win': hasWon(play) }"
     >
       {{ play._id }}
     </router-link>
@@ -14,6 +15,9 @@
 
 <script>
 import repository from '@/repository'
+import PlayService from '@/services/PlayService'
+import IPlay from '@/models/IPlay'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'history',
@@ -24,6 +28,24 @@ export default {
   },
   async mounted() {
     this.plays = await repository.getAll()
+  },
+  methods: {
+    hasWon(play) {
+      if (!this.uuid) {
+        return false
+      }
+      return PlayService.hasUserWon(this.uuid, play)
+    }
+  },
+  computed: {
+    ...mapGetters(['uuid'])
   }
 }
 </script>
+
+<style scoped>
+.play-win {
+  background-color: #2980b9 !important;
+  color: white !important;
+}
+</style>

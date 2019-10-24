@@ -1,8 +1,13 @@
-import IPlay from '@/models/IPlay'
+import IPlay, { ITurn } from '@/models/IPlay'
 import repository from '@/repository'
 import uuid from 'uuid/v4'
 import Player from '@/enums/Player'
 import Hand from '@/enums/Hand'
+
+interface Aggregation {
+  [Player.Player1]: number
+  [Player.Player2]: number
+}
 
 class PlayService {
   public async add(userId: string, id?: string): Promise<string | null> {
@@ -107,6 +112,36 @@ class PlayService {
     })
     await repository.save(play)
     return true
+  }
+
+  public hasUserWon(uuid: string, play: IPlay): boolean {
+    const winner = this.getPlayWinner(play.turns)
+    if (!winner) {
+      return false
+    }
+    return play[winner] === uuid
+  }
+
+  public getPlayWinner(turns: ITurn[]): Player | null {
+    const aggr = turns.reduce(
+      (obj: Aggregation, turn) => {
+        if (!turn.winner) {
+          return obj
+        }
+        obj[turn.winner]++
+        return obj
+      },
+      {
+        [Player.Player1]: 0,
+        [Player.Player2]: 0
+      }
+    )
+    if (aggr[Player.Player1] === aggr[Player.Player2]) {
+      return null
+    }
+    return aggr[Player.Player1] > aggr[Player.Player2]
+      ? Player.Player1
+      : Player.Player2
   }
 
   private getWinner(play1: Hand, play2: Hand | null) {

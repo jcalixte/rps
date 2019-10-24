@@ -6,7 +6,10 @@
     <div class="game">
       <div class="player player-1">
         <h1 v-if="isSpectator">Player 1</h1>
-        <h1 v-else>{{ isPlayer1 ? 'you!' : 'your opponent' }}</h1>
+        <h1 v-else>
+          {{ isPlayer1 ? 'you!' : 'your opponent' }}
+          {{ hasPlayer1Played ? 'played!' : '' }}
+        </h1>
         <h2 class="burst" :style="{ backgroundColor: colors[player.Player1] }">
           {{ player1Score }}
         </h2>
@@ -37,7 +40,7 @@ import { Getter } from 'vuex-class'
 import Hand from '@/enums/Hand'
 import Player, { PlayerColor } from '@/enums/Player'
 import PlayService from '@/services/PlayService'
-import { launchFireworks } from '@/utils/firework'
+import { launchFireworks, showSnow } from '@/utils/firework'
 
 @Component({
   components: { RPSCommand, RPSTurn }
@@ -73,6 +76,10 @@ export default class RockPaperScissors extends Vue {
     return this.play.player1 === this.uuid
   }
 
+  private get hasPlayer1Played() {
+    return !this.isPlayer1 && this.play1 !== null
+  }
+
   public get isPlayer2() {
     return this.play.player2 === this.uuid
   }
@@ -99,15 +106,19 @@ export default class RockPaperScissors extends Vue {
 
   @Watch('player1Score')
   public async onScore1Change(score: number) {
-    if (score && this.isPlayer1) {
+    if (this.isPlayer1) {
       launchFireworks()
+    } else {
+      showSnow()
     }
   }
 
   @Watch('player2Score')
   public async onScore2Change(score: number) {
-    if (score && this.isPlayer2) {
+    if (this.isPlayer2) {
       launchFireworks()
+    } else {
+      showSnow()
     }
   }
 
