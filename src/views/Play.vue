@@ -1,6 +1,11 @@
 <template>
   <div class="play">
-    <RockPaperScissors v-if="play" :play="play" />
+    <div>
+      <router-link :to="{ name: 'home' }">
+        <img src="@/assets/logo.png" />
+      </router-link>
+    </div>
+    <RockPaperScissors class="rps" v-if="play" :play="play" />
     <p v-else>Chargement...</p>
   </div>
 </template>
@@ -46,3 +51,17 @@ export default {
   }
 }
 </script>
+
+<style>
+.play {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.rps {
+  flex: 1;
+}
+img {
+  margin: 5px;
+}
+</style>
