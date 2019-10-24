@@ -1,6 +1,10 @@
 <template>
   <div class="home">
-    <h1>Join a game</h1>
+    <div>
+      <router-link :to="{ name: 'home' }">
+        <img src="@/assets/logo.png" />
+      </router-link>
+    </div>
     <div class="card-container">
       <md-card>
         <md-card-content>
@@ -88,11 +92,16 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: auto;
 }
 
 .card-container {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+img {
+  margin: 5px;
 }
 </style>
