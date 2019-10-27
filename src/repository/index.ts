@@ -1,6 +1,7 @@
 import PouchDB from 'pouchdb-browser'
 import bus, { SYNC_UP } from '@/utils/bus'
 import IDocument from '@/models/IDocument'
+import Player from '@/enums/Player'
 
 class Repository {
   private local = new PouchDB('rps')
@@ -26,8 +27,12 @@ class Repository {
   }
 
   public async get<T>(id: string): Promise<T | null> {
-    const result = await this.local.get(id)
-    return ((result as any) as T) || null
+    try {
+      const result = await this.local.get(id)
+      return ((result as any) as T) || null
+    } catch (error) {
+      return null
+    }
   }
 
   public async getRemote<T>(id: string): Promise<T | null> {
@@ -52,13 +57,16 @@ class Repository {
 
   public liveGame(id: string): void {
     this.cancelLive()
+    const ids = [`${id}-${Player.Player1}`, `${id}-${Player.Player2}`]
+    console.table(ids)
     this.sync = this.local
       .sync(this.remote, {
         live: true,
         retry: true,
-        doc_ids: [id]
+        doc_ids: ids
       })
       .on('change', (result) => {
+        console.log('change', result)
         bus.$emit(SYNC_UP, {
           id,
           result

@@ -17,11 +17,14 @@
       </div>
       <div class="player player-2">
         <h1 v-if="isSpectator">Player 2</h1>
-        <h1 v-else>{{ isPlayer2 ? 'you!' : 'your opponent' }}</h1>
+        <h1 v-else>
+          {{ isPlayer2 ? 'you!' : 'your opponent' }}
+          {{ hasPlayer2Played ? 'played!' : '' }}
+        </h1>
         <h2 class="burst" :style="{ backgroundColor: colors[player.Player2] }">
           {{ player2Score }}
         </h2>
-        <RPSCommand v-model="play2" :canPlay="isPlayer2" />
+        <RPSCommand v-model="play2" :canPlay="isPlayer2" :raise="isPlayer2" />
       </div>
     </div>
     <RPSTurn class="turn-list" :turns="play.turns" />
@@ -46,6 +49,8 @@ import { launchFireworks, showSnow } from '@/utils/firework'
   components: { RPSCommand, RPSTurn }
 })
 export default class RockPaperScissors extends Vue {
+  @Prop({ type: String, required: true })
+  private id!: string
   @Prop({ type: Object, required: true })
   private play!: IPlay
 
@@ -72,12 +77,26 @@ export default class RockPaperScissors extends Vue {
     return !!navigator && !!navigator.share
   }
 
+  public get playerNumber(): Player | null {
+    switch (this.uuid) {
+      case this.play.player1:
+        return Player.Player1
+      case this.play.player2:
+        return Player.Player2
+      default:
+        return null
+    }
+  }
+
   private get isPlayer1() {
     return this.play.player1 === this.uuid
   }
 
   private get hasPlayer1Played() {
     return !this.isPlayer1 && this.play1 !== null
+  }
+  private get hasPlayer2Played() {
+    return !this.isPlayer2 && this.play2 !== null
   }
 
   public get isPlayer2() {
@@ -124,23 +143,20 @@ export default class RockPaperScissors extends Vue {
 
   @Watch('play1')
   public async onPlayer1Play(play1: Hand | null) {
-    if (play1 === null) {
+    if (play1 === null || !this.isPlayer1) {
       return
     }
 
-    await PlayService.setPlay(this.play, Player.Player1, play1)
-    if (this.play2 !== null) {
-      PlayService.setPlay(this.play, Player.Player2, this.play2)
-    }
+    await PlayService.setPlay(this.id, Player.Player1, play1)
   }
 
   @Watch('play2')
-  public onPlayer2Play(play2: Hand | null) {
-    if (play2 === null) {
+  public async onPlayer2Play(play2: Hand | null) {
+    if (play2 === null || !this.isPlayer2) {
       return
     }
 
-    PlayService.setPlay(this.play, Player.Player2, play2)
+    await PlayService.setPlay(this.id, Player.Player2, play2)
   }
 
   @Watch('play', { deep: true })
@@ -164,7 +180,10 @@ export default class RockPaperScissors extends Vue {
       this.play2 = null
     }
 
-    if (this.isPlayer1 && (await PlayService.newTurn(this.play))) {
+    if (
+      this.playerNumber &&
+      (await PlayService.newTurn(this.id, this.playerNumber))
+    ) {
       this.play1 = null
       this.play2 = null
     }

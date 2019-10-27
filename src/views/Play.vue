@@ -5,7 +5,7 @@
         <img src="@/assets/logo.png" />
       </router-link>
     </div>
-    <RockPaperScissors class="rps" v-if="play" :play="play" />
+    <RockPaperScissors class="rps" v-if="play" :id="id" :play="play" />
     <p v-else>Chargement...</p>
   </div>
 </template>
