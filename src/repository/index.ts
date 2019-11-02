@@ -58,7 +58,6 @@ class Repository {
   public liveGame(id: string): void {
     this.cancelLive()
     const ids = [`${id}_${Player.Player1}`, `${id}_${Player.Player2}`]
-    console.table(ids)
     this.sync = this.local
       .sync(this.remote, {
         live: true,
@@ -66,7 +65,6 @@ class Repository {
         doc_ids: ids
       })
       .on('change', (result) => {
-        console.log('change', result)
         bus.$emit(SYNC_UP, {
           id,
           result
