@@ -3,7 +3,7 @@
     <router-link
       v-for="play in plays"
       :key="play._id"
-      :to="{ name: 'play', params: { id: play._id } }"
+      :to="{ name: 'play', params: { id: getPlayId(play._id) } }"
       tag="md-button"
       class="md-raised"
       :class="{ 'play-win': hasWon(play) }"
@@ -35,6 +35,9 @@ export default {
         return false
       }
       return PlayService.hasUserWon(this.uuid, play)
+    },
+    getPlayId(id) {
+      return (id || '').split('-').shift()
     }
   },
   computed: {
