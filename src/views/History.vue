@@ -37,7 +37,7 @@ export default {
       return PlayService.hasUserWon(this.uuid, play)
     },
     getPlayId(id) {
-      return (id || '').split('-').shift()
+      return (id || '').split('_').shift()
     }
   },
   computed: {

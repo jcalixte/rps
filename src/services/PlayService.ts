@@ -19,7 +19,7 @@ class PlayService {
     }
 
     const play: IPlay = {
-      _id: `${id || uuid()}-${Player.Player1}`,
+      _id: this.addSuffix(id || uuid(), Player.Player1),
       doctype: 'play',
       player1: userId,
       player2: null,
@@ -31,7 +31,9 @@ class PlayService {
   }
 
   public async joinPlay(id: string, userId: string): Promise<IPlay | null> {
-    const play = await repository.getRemote<IPlay>(`${id}-${Player.Player1}`)
+    const play = await repository.getRemote<IPlay>(
+      this.addSuffix(id, Player.Player1)
+    )
     if (!play) {
       return null
     }
@@ -44,7 +46,7 @@ class PlayService {
     const result = await repository.save(play)
     const secondPlayerPlay: IPlay = {
       ...play,
-      _id: `${id}-${Player.Player2}`,
+      _id: this.addSuffix(id, Player.Player2),
       _rev: undefined
     }
     await repository.save(secondPlayerPlay)
@@ -98,7 +100,7 @@ class PlayService {
   }
 
   public addSuffix(id: string, player: Player): string {
-    return `${id}-${player}`
+    return `${id}_${player}`
   }
 
   public async setPlay(id: string, player: Player, hand: Hand | null) {
@@ -110,7 +112,7 @@ class PlayService {
     const lastTurn = [...play.turns].pop()
 
     if (lastTurn && lastTurn[player] === hand) {
-      return
+      return false
     }
 
     play.turns.pop()
@@ -132,6 +134,7 @@ class PlayService {
     }
 
     await repository.save(play)
+    return true
   }
 
   public async getAll(): Promise<IPlay[]> {

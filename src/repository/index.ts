@@ -57,7 +57,7 @@ class Repository {
 
   public liveGame(id: string): void {
     this.cancelLive()
-    const ids = [`${id}-${Player.Player1}`, `${id}-${Player.Player2}`]
+    const ids = [`${id}_${Player.Player1}`, `${id}_${Player.Player2}`]
     console.table(ids)
     this.sync = this.local
       .sync(this.remote, {
