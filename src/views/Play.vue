@@ -6,7 +6,7 @@
       </router-link>
     </div>
     <RockPaperScissors class="rps" v-if="play" :id="id" :play="play" />
-    <p v-else>Chargement...</p>
+    <p v-else>Loading...</p>
   </div>
 </template>
 
