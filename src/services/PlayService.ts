@@ -43,7 +43,7 @@ class PlayService {
     }
     play.player2 = userId
 
-    const result = await repository.save(play)
+    const result = await repository.saveRemote(play)
     const secondPlayerPlay: IPlay = {
       ...play,
       _id: this.addSuffix(id, Player.Player2),
@@ -61,6 +61,21 @@ class PlayService {
       const play2 = await repository.get<IPlay>(
         this.addSuffix(id, Player.Player2)
       )
+      return this.mergePlays(play1, play2)
+    } catch (error) {
+      return null
+    }
+  }
+
+  public async getRemote(id: string): Promise<IPlay | null> {
+    try {
+      const play1 = await repository.getRemote<IPlay>(
+        this.addSuffix(id, Player.Player1)
+      )
+      const play2 = await repository.getRemote<IPlay>(
+        this.addSuffix(id, Player.Player2)
+      )
+
       return this.mergePlays(play1, play2)
     } catch (error) {
       return null

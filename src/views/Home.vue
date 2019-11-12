@@ -50,7 +50,7 @@ export default {
   methods: {
     async add() {
       if (this.uuid && this.lowerId) {
-        const play = await repository.getRemote(this.lowerId)
+        const play = await PlayService.getRemote(this.lowerId)
         if (play) {
           this.joinPlay()
           return
